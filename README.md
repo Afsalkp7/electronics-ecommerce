@@ -48,4 +48,4 @@ on put request
 {
     "uesrId":"65b575118f553a2a32f4bb9d"
 }
-on delete method.
+on delete request.
