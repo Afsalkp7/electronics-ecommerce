@@ -1,7 +1,7 @@
 # ELECTRONICS E-COMMERCE API⚡⚡
 
 
-# User registration through "/api/users" :-
+⚠ User registration through "/api/users" :-
 {
     "userName":"afsal",
     "email":"afsalkpmanu31@gmail.com",
@@ -11,7 +11,7 @@
     "status":"active"
 }
 
-# User login through "/api/users/signIn" :-
+⚠ User login through "/api/users/signIn" :-
 {
     "email":"afsalkpmanu31@gmail.com",
     "password": "afsal123"
