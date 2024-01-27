@@ -10,9 +10,13 @@
     "cpassword":"afsal123",
     "status":"active"
 }
+on post request.
 
 ⚠ User login through "/api/users/signIn" :-
 {
     "email":"afsalkpmanu31@gmail.com",
     "password": "afsal123"
 }
+on post request.
+
+⚠ User profile display data through "/api/users/{'userId'}" on get request.

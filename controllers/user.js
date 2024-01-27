@@ -1,8 +1,15 @@
 const mongoose = require("mongoose");
+const httpStatus = 'http-status';
 const userCollection = require("../models/userModel");
-const bcrypt = require("bcrypt")
+const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
 
+const { OK, INTERNAL_SERVER_ERROR } = httpStatus;
+
+
+/**
+ * USER REGISTRATION
+ */
 const userCreate = async (req, res, next) => {
   const alreadyUser = await userCollection.findOne({ email: req.body.email });
   if (alreadyUser) {
@@ -31,7 +38,10 @@ const userCreate = async (req, res, next) => {
   }
 };
 
-const signIn = async (req, res ,next) => {
+/**
+ * USER LOGIN
+ */
+const signIn = async ( req, res , next ) => {
   const { email, password } = req.body;
   const userProfile = await userCollection.findOne({ email });
   if (!userProfile) {
@@ -58,7 +68,23 @@ const signIn = async (req, res ,next) => {
   }
 };
 
+/**
+ * SHOW USER PROFILE
+ */
+const showUser = async ( req, res , next ) => {
+        try {
+            const userDetails = await userCollection.findById(req.params.id);
+            res.status(200).json(userDetails);
+        } catch (err) { next(err) }
+}
+
+
+
+
+
+
 module.exports = {
   userCreate,
   signIn,
+  showUser,
 };
