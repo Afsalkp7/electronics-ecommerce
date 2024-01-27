@@ -146,6 +146,16 @@ const passchange = async ( req , res , next ) => {
       }
 }
 
+/**
+ * DELETE USER DATA
+ */
+const deleteUser = async ( req , res , next ) => {
+    const _id = req.body.userId
+    await userCollection.findOneAndDelete({ _id });
+    res.clearCookie("usersession");
+    return res.status(200).json({message:"user deleted succefully"});
+}
+
 module.exports = {
   userCreate,
   signIn,
@@ -153,4 +163,5 @@ module.exports = {
   userUpdate,
   userLogout,
   passchange,
+  deleteUser
 };

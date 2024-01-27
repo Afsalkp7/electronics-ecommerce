@@ -28,4 +28,9 @@ router.get('/logout', userController.userLogout)
  */
 router.put('/changePassword', userController.passchange)
 
+/**
+ * DELETE USER DATA
+ */
+router.delete("/", userController.deleteUser)
+
 module.exports = router;

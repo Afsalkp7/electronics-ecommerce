@@ -43,3 +43,9 @@ on put request.
     "confirmPassword":"test456"
 }
 on put request
+
+⚠ User account deleting on "/api/users/" :-
+{
+    "uesrId":"65b575118f553a2a32f4bb9d"
+}
+on delete method.
