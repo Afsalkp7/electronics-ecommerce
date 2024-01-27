@@ -1,11 +1,10 @@
 const mongoose = require("mongoose");
-const httpStatus = 'http-status';
+const httpStatus = "http-status";
 const userCollection = require("../models/userModel");
 const bcrypt = require("bcrypt");
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
 const { OK, INTERNAL_SERVER_ERROR } = httpStatus;
-
 
 /**
  * USER REGISTRATION
@@ -41,11 +40,11 @@ const userCreate = async (req, res, next) => {
 /**
  * USER LOGIN
  */
-const signIn = async ( req, res , next ) => {
+const signIn = async (req, res, next) => {
   const { email, password } = req.body;
   const userProfile = await userCollection.findOne({ email });
   if (!userProfile) {
-    return res.status(401).json({ error: 'Invalid username or password' });
+    return res.status(401).json({ error: "Invalid username or password" });
   }
   try {
     if (userProfile.status == "active") {
@@ -53,38 +52,57 @@ const signIn = async ( req, res , next ) => {
         userProfile &&
         (await bcrypt.compare(password, userProfile.password))
       ) {
-        const token = jwt.sign({ userId: userProfile._id }, 'electronics api token', { expiresIn: '1h' })
+        const token = jwt.sign(
+          { userId: userProfile._id },
+          "electronics api token",
+          { expiresIn: "1h" }
+        );
 
         res.json({ token, userId: userProfile._id });
       } else {
-        return res.status(401).json({ error: 'Invalid password' });
+        return res.status(401).json({ error: "Invalid password" });
       }
     } else {
-        return res.status(401).json({ error: 'Admin blocked your account' });
+      return res.status(401).json({ error: "Admin blocked your account" });
     }
   } catch (error) {
     console.log(error);
-    next(error)
+    next(error);
   }
 };
 
 /**
  * SHOW USER PROFILE
  */
-const showUser = async ( req, res , next ) => {
-        try {
-            const userDetails = await userCollection.findById(req.params.id);
-            res.status(200).json(userDetails);
-        } catch (err) { next(err) }
-}
+const showUser = async (req, res, next) => {
+  try {
+    const userDetails = await userCollection.findById(req.params.id);
+    res.status(200).json(userDetails);
+  } catch (err) {
+    next(err);
+  }
+};
 
-
-
-
-
+/**
+ * EDIT USER DATA
+ */
+const userUpdate = async (req, res, next) => {
+  const user_id = req.body._id;
+  try {
+    const updatedUser = await userCollection.findByIdAndUpdate(
+      user_id,
+      req.body,
+      { new: true }
+    );
+    res.status(200).json(updatedUser);
+  } catch (err) {
+    next(err);
+  }
+};
 
 module.exports = {
   userCreate,
   signIn,
   showUser,
+  userUpdate,
 };
