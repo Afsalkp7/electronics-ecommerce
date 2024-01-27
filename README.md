@@ -3,19 +3,19 @@
 
 ⚠ User registration through "/api/users" :-
 {
-    "userName":"afsal",
-    "email":"afsalkpmanu31@gmail.com",
-    "phone":8089808847,
-    "password": "afsal123",
-    "cpassword":"afsal123",
+    "userName":"test user",
+    "email":"testuser@example.com",
+    "phone":9999999999,
+    "password": "test123",
+    "cpassword":"test123",
     "status":"active"
 }
 on post request.
 
 ⚠ User login through "/api/users/signIn" :-
 {
-    "email":"afsalkpmanu31@gmail.com",
-    "password": "afsal123"
+    "email":"testuser@example.com",
+    "password": "test123"
 }
 on post request.
 
@@ -24,9 +24,9 @@ on post request.
 ⚠ User details update trough "/api/users" :-
 {
     "_id": "65b557f0a59b982b35c1981a",
-    "userName": "afsal kp",
-    "email": "afsalkpmanu31@gmail.com",
-    "phone": 8089808847,
+    "userName": "test user",
+    "email": "testuser@example.com",
+    "phone": 9999999999,
     "password": "$2b$10$vSVaPloS1xChw/oSAFf0luTzEIlji0yyTyReCRloTCEFs2vJHenqO",
     "status": "active",
     "__v": 0
@@ -34,3 +34,12 @@ on post request.
 on put request.
 
 ⚠ User Logout is done but its need frontend . its on "/api/users/logout/" on get request.
+
+⚠ User password update on "/api/users/changePassword/" :-
+{
+    "userId": "65b566fe34bf114a59cb0b6d",
+    "currentPassword":"test123",
+    "newPassword":"test456",
+    "confirmPassword":"test456"
+}
+on put request

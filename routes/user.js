@@ -23,7 +23,9 @@ router.put('/', userController.userUpdate);
  */
 router.get('/logout', userController.userLogout)
 
-
-
+/**
+ * USER PASSWORD CHANGE
+ */
+router.put('/changePassword', userController.passchange)
 
 module.exports = router;

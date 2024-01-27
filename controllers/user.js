@@ -103,7 +103,7 @@ const userUpdate = async (req, res, next) => {
 /**
  * USER LOGOUT
  */
-const userLogout = ( req , res , next ) => {
+const userLogout = async ( req , res , next ) => {
     const token = req.cookies.usersession;
     if (token) {
       res.clearCookie("userLogin");
@@ -113,7 +113,38 @@ const userLogout = ( req , res , next ) => {
     }
 };
 
+/**
+ * USER PASSWORD CHANGE
+ */
+const passchange = async ( req , res , next ) => {
+    try {
 
+        const { userId , currentPassword , newPassword , confirmPassword} = req.body
+        const user = await userCollection.findById(userId);
+        console.log(user);
+        if (!user) {
+          return res.status(404).json({ message: "User not found." });
+        }
+        const curPasswordMatch = await bcrypt.compare(
+          currentPassword,
+          user.password
+        );
+        if (!curPasswordMatch) {
+          return res.status(401).send("Current password is incorrect....");
+        }
+        if (newPassword !== confirmPassword) {
+          return res.status(400).send("New passwords do not match.....");
+        }
+    
+        user.password = newPassword;
+        const passUpdatedData = await user.save();
+        res.clearCookie("usersession");
+        return res.status(200).json(passUpdatedData);
+      } catch (error) {
+        console.log(error);
+        next(error)
+      }
+}
 
 module.exports = {
   userCreate,
@@ -121,4 +152,5 @@ module.exports = {
   showUser,
   userUpdate,
   userLogout,
+  passchange,
 };
