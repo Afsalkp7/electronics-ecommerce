@@ -57,8 +57,8 @@ const signIn = async (req, res, next) => {
           "electronics api token",
           { expiresIn: "1h" }
         );
-
-        res.json({ token, userId: userProfile._id });
+        res.cookie("userLogin", token);
+        return res.status(200).json({ token, userId: userProfile._id });
       } else {
         return res.status(401).json({ error: "Invalid password" });
       }
@@ -100,9 +100,25 @@ const userUpdate = async (req, res, next) => {
   }
 };
 
+/**
+ * USER LOGOUT
+ */
+const userLogout = ( req , res , next ) => {
+    const token = req.cookies.usersession;
+    if (token) {
+      res.clearCookie("userLogin");
+      return res.status(200).json({ message:"User successfully logout" });
+    } else {
+      return res.status(401).json({message:"Login first"})
+    }
+};
+
+
+
 module.exports = {
   userCreate,
   signIn,
   showUser,
   userUpdate,
+  userLogout,
 };

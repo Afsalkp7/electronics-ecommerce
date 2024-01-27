@@ -22,7 +22,6 @@ on post request.
 ⚠ User profile display data through "/api/users/{'userId'}" on get request.
 
 ⚠ User details update trough "/api/users" :-
-
 {
     "_id": "65b557f0a59b982b35c1981a",
     "userName": "afsal kp",
@@ -33,3 +32,5 @@ on post request.
     "__v": 0
 }
 on put request.
+
+⚠ User Logout is done but its need frontend . its on "/api/users/logout/" on get request.

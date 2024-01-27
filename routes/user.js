@@ -18,7 +18,10 @@ router.post('/signIn', userController.signIn);
  */
 router.put('/', userController.userUpdate);
 
-
+/**
+ * USER LOGOUT
+ */
+router.get('/logout', userController.userLogout)
 
 
 
