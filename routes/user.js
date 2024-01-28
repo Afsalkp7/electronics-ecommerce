@@ -1,5 +1,6 @@
 const express = require("express");
 const userController = require("../controllers/user");
+const { logout } = require('../middleware/auth');
 const router = express.Router();
 
 /**
@@ -21,7 +22,7 @@ router.put('/', userController.userUpdate);
 /**
  * USER LOGOUT
  */
-router.get('/logout', userController.userLogout)
+router.post('/logout', logout)
 
 /**
  * USER PASSWORD CHANGE
@@ -32,5 +33,7 @@ router.put('/changePassword', userController.passchange)
  * DELETE USER DATA
  */
 router.delete("/", userController.deleteUser)
+
+
 
 module.exports = router;

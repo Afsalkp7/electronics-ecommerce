@@ -4,7 +4,6 @@ const userCollection = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const { OK, INTERNAL_SERVER_ERROR } = httpStatus;
 
 /**
  * USER REGISTRATION
@@ -54,10 +53,10 @@ const signIn = async (req, res, next) => {
       ) {
         const token = jwt.sign(
           { userId: userProfile._id },
-          "electronics api token",
+          process.env.authSecretKey,
           { expiresIn: "1h" }
         );
-        res.cookie("userLogin", token);
+        console.log(req.headers);
         return res.status(200).json({ token, userId: userProfile._id });
       } else {
         return res.status(401).json({ error: "Invalid password" });
@@ -100,18 +99,18 @@ const userUpdate = async (req, res, next) => {
   }
 };
 
-/**
- * USER LOGOUT
- */
-const userLogout = async ( req , res , next ) => {
-    const token = req.cookies.usersession;
-    if (token) {
-      res.clearCookie("userLogin");
-      return res.status(200).json({ message:"User successfully logout" });
-    } else {
-      return res.status(401).json({message:"Login first"})
-    }
-};
+// /**
+//  * USER LOGOUT
+//  */
+// const userLogout = async ( req , res ) => {
+//     const token = req.headers.authorization;
+//     if (token && !blacklist.includes(token)) {
+//       blacklist.push(token);
+//       return res.status(200).json({ message: 'Logout successful' });
+//     } else {
+//       return res.status(401).json({ error: 'Invalid or revoked token' });
+//     }
+// };
 
 /**
  * USER PASSWORD CHANGE
@@ -161,7 +160,6 @@ module.exports = {
   signIn,
   showUser,
   userUpdate,
-  userLogout,
   passchange,
   deleteUser
 };
