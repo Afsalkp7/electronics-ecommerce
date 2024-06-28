@@ -1,5 +1,5 @@
 # ELECTRONICS E-COMMERCE API⚡⚡
-
+<hr />
 
 ⚠ User registration through "/api/users" :-
 {
